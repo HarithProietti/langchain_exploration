@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+
+
+
+<html lang="en" class="sidebar-visible no-js">
+    <head>
+      <meta charset="UTF-8">
+        <title>
+          
+            Speech Recognition and Graph Transformer Network I &middot; Deep Learning
+          
+        </title>
+
+      <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+      <!--<meta name="description" content="NYU Deep Learning Spring 2021">-->
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="theme-color" content="#ffffff" />
+
+      <link rel="shortcut icon" href="/NYU-DLSP21/static/favicon.ico">
+      <link rel="stylesheet" href="/NYU-DLSP21/static/css/variables.css">
+      <link rel="stylesheet" href="/NYU-DLSP21/static/css/general.css">
+      <link rel="stylesheet" href="/NYU-DLSP21/static/css/chrome.css">
+      <link rel="stylesheet" href="/NYU-DLSP21/static/css/print.css" media="print">
+
+      <!-- Fonts -->
+      <link rel="stylesheet" href="/NYU-DLSP21/static/FontAwesome/css/font-awesome.min.css">
+      <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+      <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+      <!-- Highlight.js Stylesheets -->
+      <link rel="stylesheet" href="/NYU-DLSP21/static/highlight.css">
+      <link rel="stylesheet" href="/NYU-DLSP21/static/tomorrow-night.css">
+      <link rel="stylesheet" href="/NYU-DLSP21/static/ayu-highlight.css">
+	  
+	  <!-- Katex -->
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+      <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js" integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz" crossorigin="anonymous" onload="render_katex()"></script>
+
+      <!-- To automatically render math in text elements, include the auto-render extension: -->
+      <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"
+          onload="renderMathInElement(document.body, {delimiters: [
+                          {left: '$$', right: '$$', display: true},
+                          {left: '$', right: '$', display: false},
+                          {left: '\\[', right: '\\]', display: true},
+                          {left: '\\(', right: '\\)', display: false}
+          ]});"></script>
+    </head>
+
+  <body class="ayu">
+    <!-- Provide site root to javascript -->
+    <script type="text/javascript">
+        var default_theme = "ayu";
+    </script>
+
+    <!-- Work around some values being stored in localStorage wrapped in quotes -->
+    <script type="text/javascript">
+        try {
+            var theme = localStorage.getItem('mdbook-theme');
+            var sidebar = localStorage.getItem('mdbook-sidebar');
+
+            if (theme.startsWith('"') && theme.endsWith('"')) {
+                localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+            }
+
+            if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+            }
+        } catch (e) { }
+    </script>
+
+    <!-- Set the theme before any content is loaded, prevents flash -->
+    <script type="text/javascript">
+        var theme;
+        try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
+        if (theme === null || theme === undefined) { theme = default_theme; }
+        document.body.className = theme;
+        document.querySelector('html').className = theme + ' js';
+    </script>
+
+    <!-- Hide / unhide sidebar before it is displayed -->
+    <script type="text/javascript">
+        var html = document.querySelector('html');
+        var sidebar = 'hidden';
+        if (document.body.clientWidth >= 1080) {
+            try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+            sidebar = sidebar || 'visible';
+        }
+        html.classList.remove('sidebar-visible');
+        html.classList.add("sidebar-" + sidebar);
+    </script>
+
+    <nav id="sidebar" class="sidebar" aria-label="Table of contents" aria-hidden="false" >
+        <div id="sidebar-scrollbox" class="sidebar-scrollbox">
+
+            
+
+            <ol class="chapter">
+            <!-- "/en/week11/11-1/" vs "/NYU-DLSP21/" -->
+            
+                <li><a href="/NYU-DLSP21/">Home</a></li>
+            
+
+            
+            
+            
+            
+            
+
+            
+              
+              
+              
+              
+              <li class="expanded "><a class="" href="/NYU-DLSP21/en/faq/">
+                Foreword, FAQ and disclaimer
+              </a></li>
+              
+            
+
+            
+              
+              
+              
+              
+              
+              <li class="expanded "><a class="" href="/NYU-DLSP21/en/week01/01/">
+                  <strong aria-hidden="true">1.</strong> Week 1
+              </a></li>
+              
+            
+              
+              
+              
+              
+              
+              <li class="expanded "><a class="" href="/NYU-DLSP21/en/week02/02/">
+                  <strong aria-hidden="true">2.</strong> Week 2
+              </a></li>
+              
+              	<li><ol class="section">
+                
+                  
+                  
+                  
+                  
+                  <li class="expanded "><a class="" href="/NYU-DLSP21/en/week02/02-3/">
+                      <strong aria-hidden="true">2.1.</strong> Problem Motivation, Linear Algebra, and Visualization
+                  </a></li>
+                  
+              	</ol></li>
+              
+            
+              
+              
+              
+              
+              
+              <li class="expanded "><a class="" href="/NYU-DLSP21/en/week03/03/">
+                  <strong aria-hidden="true">3.</strong> Week 3
+              </a></li>
+              
+              	<li><ol class="section">
+                
+                  
+                  
+                  
+                  
+                  <li class="expanded "><a class="" href="/NYU-DLSP21/en/week03/03-3/">
+                      <strong aria-hidden="true">3.1.</strong> Spiral classification
+                  </a></li>
+                  
+              	</ol></li>
+              
+            
+              
+              
+              
+              
+              
+              <li class="expanded "><a class="" href="/NYU-DLSP21/en/week04/04/">
+                  <strong aria-hidden="true">4.</strong> Week 4
+              </a></li>
+              
+            
+              
+              
+              
+              
+              
+              <li class="expanded "><a class="" href="/NYU-DLSP21/en/week05/05/">
+                  <strong aria-hidden="true">5.</strong> Week 5
+              </a></li>
+              
+            
+              
+              
+              
+              
+              
+              <li class="expanded "><a class="" href="/NYU-DLSP21/en/week06/06/">
+                  <strong aria-hidden="true">6.</strong> Week 6
+              </a></li>
+              
+            
+              
+              
+              
+              
+              
+              <li class="expanded "><a class="" href="/NYU-DLSP21/en/week07/07/">
+                  <strong aria-hidden="true">7.</strong> Week 7
+              </a></li>
+              
+              	<li><ol class="section">
+                
+                  
+                  
+                  
+                  
+                  <li class="expanded "><a class="" href="/NYU-DLSP21/en/week07/07-3/">
+                      <strong aria-hidden="true">7.1.</strong> Introduction to Autoencoders
+                  </a></li>
+                  
+              	</ol></li>
+              
+            
+              
+              
+              
+              
+              
+              <li class="expanded "><a class="" href="/NYU-DLSP21/en/week08/08/">
+                  <strong aria-hidden="true">8.</strong> Week 8
+              </a></li>
+              
+              	<li><ol class="section">
+                
+                  
+                  
+                  
+                  
+                  <li class="expanded "><a class="" href="/NYU-DLSP21/en/week08/08-3/">
+                      <strong aria-hidden="true">8.1.</strong> Generative Models - Autoencoders
+                  </a></li>
+                  
+              	</ol></li>
+              
+            
+              
+              
+              
+              
+              
+              <li class="expanded "><a class="" href="/NYU-DLSP21/en/week09/09/">
+                  <strong aria-hidden="true">9.</strong> Week 9
+              </a></li>
+              
+              	<li><ol class="section">
+                
+                  
+                  
+                  
+                  
+                  <li class="expanded "><a class="" href="/NYU-DLSP21/en/week09/09-3/">
+                      <strong aria-hidden="true">9.1.</strong> Generative Models
+                  </a></li>
+                  
+              	</ol></li>
+              
+            
+              
+              
+              
+              
+              
+              <li class="expanded "><a class="" href="/NYU-DLSP21/en/week10/10/">
+                  <strong aria-hidden="true">10.</strong> Week 10
+              </a></li>
+              
+              	<li><ol class="section">
+                
+                  
+                  
+                  
+                  
+                  <li class="expanded "><a class="" href="/NYU-DLSP21/en/week10/10-1/">
+                      <strong aria-hidden="true">10.1.</strong> Self Supervised Learning in Computer Vision
+                  </a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li class="expanded "><a class="" href="/NYU-DLSP21/en/week10/10-2/">
+                      <strong aria-hidden="true">10.2.</strong> SEER, AVID + CMA, Distillation, Barlow Twins
+                  </a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li class="expanded "><a class="" href="/NYU-DLSP21/en/week10/10-3/">
+                      <strong aria-hidden="true">10.3.</strong> Transformer  Encoder-predictor-decoder architecture
+                  </a></li>
+                  
+              	</ol></li>
+              
+            
+              
+              
+              
+              
+              
+              <li class="expanded "><a class="" href="/NYU-DLSP21/en/week11/11/">
+                  <strong aria-hidden="true">11.</strong> Week 11
+              </a></li>
+              
+              	<li><ol class="section">
+                
+                  
+                  
+                  
+                  
+                  <li class="expanded "><a class="active" href="/NYU-DLSP21/en/week11/11-1/">
+                      <strong aria-hidden="true">11.1.</strong> Speech Recognition and Graph Transformer Network I
+                  </a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li class="expanded "><a class="" href="/NYU-DLSP21/en/week11/11-2/">
+                      <strong aria-hidden="true">11.2.</strong> Speech Recognition and Graph Transformer Network II
+                  </a></li>
+                  
+              	</ol></li>
+              
+            
+              
+              
+              
+              
+              
+              <li class="expanded "><a class="" href="/NYU-DLSP21/en/week12/12/">
+                  <strong aria-hidden="true">12.</strong> Week 12
+              </a></li>
+              
+              	<li><ol class="section">
+                
+                  
+                  
+                  
+                  
+                  <li class="expanded "><a class="" href="/NYU-DLSP21/en/week12/12-1/">
+                      <strong aria-hidden="true">12.1.</strong> Low Resource Machine Translation I
+                  </a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li class="expanded "><a class="" href="/NYU-DLSP21/en/week12/12-2/">
+                      <strong aria-hidden="true">12.2.</strong> Low Resource Machine Translation II
+                  </a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li class="expanded "><a class="" href="/NYU-DLSP21/en/week12/12-3/">
+                      <strong aria-hidden="true">12.3.</strong> MPC (EBM version)
+                  </a></li>
+                  
+              	</ol></li>
+              
+            
+              
+              
+              
+              
+              
+              <li class="expanded "><a class="" href="/NYU-DLSP21/en/week13/13/">
+                  <strong aria-hidden="true">13.</strong> Week 13
+              </a></li>
+              
+            
+              
+              
+              
+              
+              
+              <li class="expanded "><a class="" href="/NYU-DLSP21/en/week14/14/">
+                  <strong aria-hidden="true">14.</strong> Week 14
+              </a></li>
+              
+            
+              
+              
+              
+              
+              
+              <li class="expanded "><a class="" href="/NYU-DLSP21/en/week15/15/">
+                  <strong aria-hidden="true">15.</strong> Week 15
+              </a></li>
+              
+              	<li><ol class="section">
+                
+                  
+                  
+                  
+                  
+                  <li class="expanded "><a class="" href="/NYU-DLSP21/en/week15/15-1/">
+                      <strong aria-hidden="true">15.1.</strong> Joint Embedding Methods - Contrastive
+                  </a></li>
+                  
+                  
+                  
+                  
+                  
+                  <li class="expanded "><a class="" href="/NYU-DLSP21/en/week15/15-2/">
+                      <strong aria-hidden="true">15.2.</strong> Joint Embedding Methods - Regularised
+                  </a></li>
+                  
+              	</ol></li>
+              
+            
+
+            
+
+            
+            
+
+            
+
+            
+            
+            
+            
+            
+
+
+            <li><a href="https://github.com/atcold/NYU-DLSP21"><img src="/NYU-DLSP21/static/GitHub.png" /></a></li>
+            <!-- Here's some debug info: -->
+            <!--current_index: 23-->
+            <!--next_page: en/week11/11-2.md -->
+            <!--previous_page: en/week11/11.md -->
+            <!--the page list: ["/NYU-DLSP21/","/NYU-DLSP21/","en/faq.md","en/week01/01.md","en/week02/02.md","en/week02/02-3.md","en/week03/03.md","en/week03/03-3.md","en/week04/04.md","en/week05/05.md","en/week06/06.md","en/week07/07.md","en/week07/07-3.md","en/week08/08.md","en/week08/08-3.md","en/week09/09.md","en/week09/09-3.md","en/week10/10.md","en/week10/10-1.md","en/week10/10-2.md","en/week10/10-3.md","en/week11/11.md","en/week11/11-1.md","en/week11/11-2.md","en/week12/12.md","en/week12/12-1.md","en/week12/12-2.md","en/week12/12-3.md","en/week13/13.md","en/week14/14.md","en/week15/15.md","en/week15/15-1.md","en/week15/15-2.md","en/week15/15-2.md"] -->
+
+            </ol>
+        </div>
+        <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+    </nav>
+
+    <div id="page-wrapper" class="page-wrapper">
+        <div class="page">
+            <div id="menu-bar" class="menu-bar">
+                <div id="menu-bar-sticky-container">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <button id="lang-toggle" class="icon-button" type="button" title="Change language" aria-label="Change language" aria-haspopup="true" aria-expanded="false" aria-controls="lang-list">
+                            <i class="fa flag-placeholder lang-is-en"></i>
+                        </button>
+                    </div>
+                    <ul id="theme-list" class="button-popup theme-popup" aria-label="Themes" role="menu">
+                        <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                        <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                        <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                        <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                        <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu (default)</button></li>
+                    </ul>
+
+                    <ul id="lang-list" class="button-popup lang-popup" aria-label="Languages" role="menu">
+                        
+                        
+                          
+                            
+                            <li role="none"><button onclick="window.location='/NYU-DLSP21/en/week11/11-1/';" role="menuitem" class="lang-selector lang-is-en theme"> en </button></li>
+                          
+                            
+                            <li role="none"><button onclick="window.location='/NYU-DLSP21/fr/week11/11-1/';" role="menuitem" class="lang-selector lang-is-fr theme"> fr </button></li>
+                          
+                        
+                    </ul>
+
+                    <h1 class="menu-title">Deep Learning</h1>
+
+                    <div class="right-buttons">
+                        <a href="" title="Git repository" aria-label="Git repository">
+                            <!-- <i id="git-repository-button" class="fa "></i> -->
+                            <i id="git-repository-button"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+            <script type="text/javascript">
+                document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                    link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                });
+            </script>
+
+            <div id="content" class="content">
+                <main>
+                    <div class="page" >
+                      <h1 class="page-title">Speech Recognition and Graph Transformer Network I</h1>
+                      <div style="display:none;">
+    $$\gdef \sam #1 {\mathrm{softargmax}(#1)}$$
+    $$\gdef \vect #1 {\boldsymbol{#1}} $$
+    $$\gdef \matr #1 {\boldsymbol{#1}} $$
+    $$\gdef \E  {\mathbb{E}} $$
+    $$\gdef \V  {\mathbb{V}} $$
+    $$\gdef \R {\mathbb{R}} $$
+    $$\gdef \N {\mathbb{N}} $$
+    $$\gdef \relu #1 {\texttt{ReLU}(#1)} $$
+    $$\gdef \D {\,\mathrm{d}} $$
+    $$\gdef \deriv #1 #2 {\frac{\D #1}{\D #2}}$$
+    $$\gdef \pd #1 #2 {\frac{\partial #1}{\partial #2}}$$
+    $$\gdef \set #1 {\left\lbrace #1 \right\rbrace} $$
+    
+    % My colours
+
+    $$\gdef \aqua #1 {\textcolor{8dd3c7}{#1}} $$
+    $$\gdef \yellow #1 {\textcolor{ffffb3}{#1}} $$
+    $$\gdef \lavender #1 {\textcolor{bebada}{#1}} $$
+    $$\gdef \red #1 {\textcolor{fb8072}{#1}} $$
+    $$\gdef \blue #1 {\textcolor{80b1d3}{#1}} $$
+    $$\gdef \orange #1 {\textcolor{fdb462}{#1}} $$
+    $$\gdef \green #1 {\textcolor{b3de69}{#1}} $$
+    $$\gdef \pink #1 {\textcolor{fccde5}{#1}} $$
+    $$\gdef \vgrey #1 {\textcolor{d9d9d9}{#1}} $$
+    $$\gdef \violet #1 {\textcolor{bc80bd}{#1}} $$
+    $$\gdef \unka #1 {\textcolor{ccebc5}{#1}} $$
+    $$\gdef \unkb #1 {\textcolor{ffed6f}{#1}} $$
+
+    % Vectors
+    $$\gdef \vx {\pink{\vect{x }}} $$
+    $$\gdef \vy {\blue{\vect{y }}} $$
+    $$\gdef \vb {\vect{b}} $$
+    $$\gdef \vz {\orange{\vect{z }}} $$
+    $$\gdef \vtheta {\vect{\theta }} $$
+    $$\gdef \vh {\green{\vect{h }}} $$
+    $$\gdef \vq {\aqua{\vect{q }}} $$
+    $$\gdef \vk {\yellow{\vect{k }}} $$
+    $$\gdef \vv {\green{\vect{v }}} $$
+    $$\gdef \vytilde {\violet{\tilde{\vect{y}}}} $$
+    $$\gdef \vyhat {\red{\hat{\vect{y}}}} $$
+    $$\gdef \vycheck {\blue{\check{\vect{y}}}} $$
+    $$\gdef \vzcheck {\blue{\check{\vect{z}}}} $$
+    $$\gdef \vztilde {\green{\tilde{\vect{z}}}} $$
+    $$\gdef \vmu {\green{\vect{\mu}}} $$
+    $$\gdef \vu {\orange{\vect{u}}} $$
+    
+    % Matrices
+    $$\gdef \mW {\matr{W}} $$
+    $$\gdef \mA {\matr{A}} $$
+    $$\gdef \mX {\pink{\matr{X}}} $$
+    $$\gdef \mY {\blue{\matr{Y}}} $$
+    $$\gdef \mQ {\aqua{\matr{Q }}} $$
+    $$\gdef \mK {\yellow{\matr{K }}} $$
+    $$\gdef \mV {\lavender{\matr{V }}} $$
+    $$\gdef \mH {\green{\matr{H }}} $$
+
+    % Coloured math
+    $$\gdef \cx {\pink{x}} $$
+    $$\gdef \ctheta {\orange{\theta}} $$
+    $$\gdef \cz {\orange{z}} $$
+    $$\gdef \Enc {\lavender{\text{Enc}}} $$
+    $$\gdef \Dec {\aqua{\text{Dec}}}$$
+
+    
+</div>
+
+
+🎙️ <i>Awni Hannun</i>
+
+
+<h2 id="modern-speech-recognition">Modern Speech Recognition</h2>
+
+<p>This section is a high level introduction to speech recognition and modern speech recognition specifically why it’s become so good, but what are some of the problems still.</p>
+
+<ul>
+  <li>Automatic speech recognition has greatly improved since 2012
+    <ul>
+      <li>Machine performance can be as good or better than human level performance</li>
+    </ul>
+  </li>
+  <li>Speech recognition still struggles in
+    <ul>
+      <li>conversational speech</li>
+      <li>multiple speakers</li>
+      <li>lots of background noise</li>
+      <li>the accent of the speakers</li>
+      <li>certain features not well represented in the training data</li>
+    </ul>
+  </li>
+  <li>Pre 2012 speech recognition systems consisted of lots of many hand engineered components
+    <ul>
+      <li>larger dataset is not useful so datasets remain small</li>
+      <li>combining modules only at inference time instead of learning them together allowed for errors to cascade</li>
+      <li>researchers hard to know how to improve complex systems</li>
+    </ul>
+  </li>
+  <li>Post 2012 speech recognition systems improvements
+    <ul>
+      <li>replaced a lot of the traditional components</li>
+      <li>add more data</li>
+      <li>above two together work in a virtuous cycle</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="the-ctc-loss">The CTC Loss</h2>
+
+<p>Given some input speech utterance $\mX$, which consists of $T$ frames of audio. We desire to produce a transcription $\mY$ and we’ll think of our transcription as consisting of the letters of a sentence, so $y_1$ is the first letter $y_U$ is the last letter.</p>
+
+\[\mX=[x_1,...,x_T],\ \mY=[y_1,...,y_U]\]
+
+<p>Compute conditional probability(the score) to evaluate transcription, we want to maximize the probability.</p>
+
+\[\log{P(\mY \mid \mX;\theta)}\]
+
+<h3 id="example-1">Example 1</h3>
+
+\[\mX=[x_1, x_2, x_3],\ \mY=[c,a,t]\]
+
+<p>$\mX$ has three frames, $\mY$ has three letters, the number of inputs matches the number of outputs, it’s easy to compute the probability by one to one mapping.</p>
+
+\[\log{P(c \mid x_1)} + \log{P(a \mid x_2)} + \log{P(t \mid x_3)}\]
+
+<h3 id="example-2">Example 2</h3>
+
+\[\mX=[x_1, x_2, x_3, x_4],\ \mY=[c,a,t]\]
+
+<ul>
+  <li>Alignment: three possible ways
+    <ul>
+      <li>$A_1$: $x_1\rightarrow c$, $x_2\rightarrow a$, $x_3\rightarrow t$, $x_4\rightarrow t$</li>
+      <li>$A_2$: $x_1\rightarrow c$, $x_2\rightarrow a$, $x_3\rightarrow a$, $x_4\rightarrow t$</li>
+      <li>$A_3$: $x_1\rightarrow c$, $x_2\rightarrow c$, $x_3\rightarrow a$, $x_4\rightarrow t$</li>
+    </ul>
+  </li>
+  <li>Which alignment should we use to compute the score?
+    <ul>
+      <li>All of them. We’re going to try to increase the score of all alignments and then hope the model sorts things out internally. The model can decide to optimize these different alignments and weight them accordingly and learn which one is the best.</li>
+    </ul>
+  </li>
+</ul>
+
+\[\log{P(\mY \mid \mX)}=\log{[P(A_1 \mid \mX)+P(A_2 \mid \mX)+P(A_3 \mid \mX)]}\]
+
+<p><strong>Reminder</strong>: use actual-softsoftmax to sum log probabilities.</p>
+
+<p>We want $\log{(P_1+P_2)}$ from $\log{P_1}$ and $\log{P_2}$</p>
+
+\[\begin{aligned}
+\text{actual-softmax}(\log{P_1}, \log{P_2}) 
+&amp;= \log{P_1}+\log{P_2} \\
+&amp;= \log{(e^{\log{P1}}+e^{\log{P2}})}
+\end{aligned}\]
+
+<h3 id="alignment-graph">Alignment graph</h3>
+
+<p>Alignment graph is a way to encode the set of possible alignments to an arbitrary length input.</p>
+
+<center>
+<img src="/NYU-DLSP21/images/week11/11-1/figure1.png" style="zoom: 40%; background-color:#DCDCDC;" /><br />
+<b>Figure 1:</b> Alignment graph<br />
+<br />
+</center>
+
+<p>This graph is sometimes called weighted finite state acceptor (WFSA). The bold state marked 0 at the beginning is a start state, the concentric circle marked 3 is an accepting state. On each edge, there’re a label and a weight on both sides of a slash. Any path in this graph is an encoding of an alignment.</p>
+
+<h3 id="problem-too-many-alignments">Problem: too many alignments</h3>
+
+<p>There’s a problem when using all of the alignments. The $\mX$ input audio can have lots of frames, in practice they can be as high as thousands. The $\mY$ transcription can have lots of letters, in practice it can be hundreds or more. This is an astronomically large number of alignments, so we can’t compute individual score and sum all of them.</p>
+
+<h3 id="solution-the-forward-algorithmdynamic-programming">Solution: the forward algorithm(dynamic programming)</h3>
+
+<p>Define forward variable $\alpha_t^u$, the subscript $t$ is where we are in the input and the superscript $u$ is where we are in the output. This represents the score for all alignments of length $t$ which end in the output $y_u$.</p>
+
+<p>Suppose $\mX=[x_1,x_2,x_3,x_4]$, $\mY=[c,a,t]$, the forward variable $\alpha_2^c$ represents the score of all possible alignments of length two up to the first two frames that ends in $c$ in the first output of the transcription. There’s only one possible alignment for that $x_1\rightarrow c$, $x_2\rightarrow c$. This is simple to compute.</p>
+
+\[\alpha_2^c=\log{P(c \mid x_1)}+\log{P(c \mid x_2)}\]
+
+<p>Similarly, $\alpha_2^a$ has only one possibility.</p>
+
+\[\alpha_2^a=\log{P(c \mid x_1)}+\log{P(a \mid x_2)}\]
+
+<p>For $\alpha_3^a$, there are two possible alignments</p>
+
+<ul>
+  <li>$A_1$: $x_1\rightarrow c$, $x_2\rightarrow c$, $x_3\rightarrow a$</li>
+  <li>$A_2$: $x_1\rightarrow c$, $x_2\rightarrow a$, $x_3\rightarrow a$</li>
+</ul>
+
+\[\alpha_3^a=\text{actual-softmax}[\log{P(A_1)}, \log{P(A_2)}] \\
+\log{P(A_1)}=\log{P(c \mid x_1)}+\log{P(c \mid x_2)}+\log{P(a \mid x_3)} \\
+\log{P(A_2)}=\log{P(c \mid x_1)}+\log{P(a \mid x_2)}+\log{P(a \mid x_3)}\]
+
+<p>This is the naive approach to compute $\alpha_3^a$.</p>
+
+<p>Using this forward variable, we seek to model the probability distribution $P(\mY \mid \mX) = \sum_{a \in A} P(a)$, where $A$ is the set of all possible alignments from $\mY$ to $\mX$.  This decomposes as</p>
+
+\[P(\mY \mid \mX) = \sum_{a \in A}  \prod_{t=1}^T P(a_t \mid \mX)\]
+
+<p>where $P(a_t \mid \mX)$ are the output logits of a system such as an RNN. That is, to compute the likelihood of the transcript $\mY$ we must marginalize over an intractably large number of alignments.  We may do this with a recursive decomposition of the forward variable.  The below presentation is inspired by https://distill.pub/2017/ctc/, which is an excellent introduction to the algorithm.</p>
+
+<p>First, we permit an alignment to contain the empty output $\epsilon$ in order to account for the fact that audio sequences are longer than their corresponding transcripts.  We also collapse repetitions, so that ${a, \epsilon, a, a, \epsilon, a}$ corresponds to the sequence $aaa$.  We will also define $\alpha$ using an alternative transcript $Z$, which is equal to $\mY$ but is interspersed with $\epsilon$.  That is, $Z = {\epsilon, y_1, \epsilon, y_2, …, y_n, \epsilon }$.</p>
+
+<p>Now, suppose $y_i = y_{i+1}$, so that $Z$ contains a subsequence $y_i, \epsilon, y_{i+1}$, and suppose $y_{i+1}$ occurs at psosition $s$ in $Z$.  Then the alignment for $\alpha_{s}^t$ can be arrived at by one of two ways: either the prediction at time $t-1$ can be $y_{i+1}$ (in which case the repetition is collapsed) or else the prediction at time $t-1$ can be epsilon.  So, we may decompose:</p>
+
+\[\alpha_s^t = (\alpha_{s, t-1} + \alpha_{s-1, t-1}) P(z_s \mid \mX)\]
+
+<p>where the elements of the sum represent the two possible prefixes to the alignment.  If, on the other hand, we have $y_i \ne y_{i+1}$ then there is the additional third possibility that the prediction at time $t-1$ is equal to $y_i$.  So, we have the decomposition</p>
+
+\[\alpha_s^t = (\alpha_{s, t-1} + \alpha_{s-1, t-1} + \alpha{s-2, t-1}) P(z_s \mid \mX)\]
+
+<p>By computing $\alpha_{\vert Z\vert}^{T}$, we may effectively marginalize over all possible alignments between the transcript $\mY$ and the audio $\mX$, allowing efficient training and inference.  This is called Connectionist Temporal Classification, or CTC.</p>
+
+
+
+
+
+<hr/>
+
+
+
+<!--Writing emoji is here but doesn't show up sometimes -->📝 <i>Cal Peyser, Kevin Chang</i>
+
+
+
+
+
+<br/>
+<i>14 Apr 2021</i>
+
+
+                    </div>
+                </main>
+
+                <nav class="nav-wrapper" aria-label="Page navigation">
+                    <!-- Mobile navigation buttons -->
+                    <a rel="prev" href="/NYU-DLSP21/en/week11/11/" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next" href="/NYU-DLSP21/en/week11/11-2/" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+
+                    <div style="clear: both"></div>
+                </nav>
+            </div>
+        </div>
+
+        <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                <a href="/NYU-DLSP21/en/week11/11/" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+
+                <a href="/NYU-DLSP21/en/week11/11-2/" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+        </nav>
+
+    </div>
+
+    <script src="/NYU-DLSP21/static/clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/NYU-DLSP21/static/highlight.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/NYU-DLSP21/static/book.js" type="text/javascript" charset="utf-8"></script>
+
+    <script>
+      function render_katex() {
+      $("script[type='math/tex']").replaceWith(function() {
+          var tex = $(this).text();
+          return katex.renderToString(tex, {displayMode: false});
+      });
+
+      $("script[type='math/tex; mode=display']").replaceWith(function() {
+          var tex = $(this).html();
+          return katex.renderToString(tex.replace(/%.*/g, ''), {displayMode: true});
+      });
+      };
+    </script>
+
+    </body>
+</html>
