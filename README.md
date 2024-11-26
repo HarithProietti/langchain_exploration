@@ -1,3 +1,5 @@
+# Langchain basics
+
 This repository contains exploratory notebooks regarding the capabilities of langchain for RAG applications and agents.
 
 Several topics are tackled:
@@ -8,7 +10,7 @@ Several topics are tackled:
 - Agents
 
 
-### Setup
+## Setup
 
 To set the correct requirements, please type:
 
